@@ -188,15 +188,20 @@ Object.assign( Translator.prototype, {
     
     translate( key, langTag ){
         const self = this;
+        let options = {};
         
         if( typeof langTag !== 'string' ){
+            if (typeof langTag !== 'undefined') {
+              options = langTag;
+            }
             const { tag } = self._getLanguage();
             langTag = tag;
+
         }
         
         const namespace = self._namespace;
         
-        return self._i18next.t( key, { lng: langTag, ns: namespace } );
+        return self._i18next.t( key, { lng: langTag, ns: namespace, ...options } );
     },
     
     __(){

@@ -4,13 +4,17 @@
 
 
 import i18next from 'i18next';
+import sprintf from 'i18next-sprintf-postprocessor';
+
+i18next
+  .use(sprintf);
 
 import CONFIG_DEFAULTS from './../../shared/etc/config-defaults';
 import { getLanguage } from './../../shared/cache';
 
 
 
-const { 
+const {
     PROJECT_NAMESPACE,
     FALLBACK_LANGUAGE,
     DEBUG_MODE
@@ -20,54 +24,54 @@ const {
 
 function Translator( packageName = PROJECT_NAMESPACE, options = {}, originTranslator ){
     const self = this;
-    
-    
+
+
     if( typeof packageName === 'object' ){
         options = packageName;
         packageName = PROJECT_NAMESPACE;
     }
-    
+
     if( typeof packageName !== 'string' ){
         throw new Error( 'invalid argument: packageName' );
     }
-    
-    
+
+
     packageName = packageName.replace( ':', '_' );
     self._packageName = packageName;
 
-    
+
     self._overwrites = {};
-    
+
     self._promises = [];
-    
-    
+
+
     let { namespace = packageName } = options;
     if( namespace === null ){
         namespace = packageName;
         Object.assign( options, { namespace } );
     }
-    
-    
+
+
     // INHERIT from origin translator
     if( typeof originTranslator !== 'undefined' ){
         self._namespace = originTranslator._namespace;
     }else{
         self._namespace = namespace;
     }
-    
-    
+
+
     const { availableLanguages } = options;
-    
-    self._supportedLangauges = new Map( 
+
+    self._supportedLangauges = new Map(
         Object.keys( availableLanguages ).map( ( langTag )=>{
             return [
                 langTag,
                 availableLanguages[ langTag ]
             ]
-        }) 
+        })
     );
 
-    
+
     // INHERIT from origin translator
     if( typeof originTranslator !== 'undefined' ){
         self._i18next = originTranslator._i18next;
@@ -90,125 +94,135 @@ function Translator( packageName = PROJECT_NAMESPACE, options = {}, originTransl
         self._promises.push( i18nextIsReady );
     }
 
-    
+
     return self;
 }
 
 
 Object.assign( Translator.prototype, {
-    
+
     constructor: Translator,
-    
-    
+
+
     _getNamespace(){
         const self = this;
         return self._namespace;
     },
-    
+
     _getPackageName(){
         const self = this;
         return self._packageName;
     },
-    
+
     _getLanguage: getLanguage,
-    
+
     _supportsLanguage( langTag ){
         const self = this;
         return self._supportedLangauges.has( langTag );
     },
-    
-    
-    // NOTE: might be a good idea to remove resolved promise instances 
+
+
+    // NOTE: might be a good idea to remove resolved promise instances
     // to reduce memory footprint
     ifReady(){
         const self = this;
         return Promise.all( self._promises );
     },
-        
-    
+
+
     _addTranslations( langTag, translations ){
         if( typeof translations !== 'object' ){
             throw new Error( 'invalid argument: translations' );
         }
 
         const self = this;
-        
-        
+
+
         const {
             [ langTag ]: translationOverwrites = {}
         } = self._overwrites;
-        
+
         Object.assign( translations, translationOverwrites );
-        
-        
+
+
         const deep = true;
         const overwrite = true;
-        
+
         self._i18next.addResourceBundle(
-            langTag, 
+            langTag,
             self._namespace,
             translations,
             deep,
             overwrite
         );
     },
-    
+
     _getTranslations( langTag ){
         const self = this;
-        
-        const { 
-            services: { 
-                resourceStore: { 
-                    data: { 
-                        [ langTag ]: translations = {} 
-                    } = {} 
-                } = {} 
+
+        const {
+            services: {
+                resourceStore: {
+                    data: {
+                        [ langTag ]: translations = {}
+                    } = {}
+                } = {}
             } = {}
         } = self._i18next;
-        
+
         return {
             namespace: self._namespace,
             translations
         }
     },
-    
-    
+
+
     _addOverwrites( langTag, translations ){
         if( typeof translations !== 'object' ){
             throw new Error( 'invalid argument: translations' );
         }
-        
+
         const self = this;
-        
-        
+
+
         const { [ langTag ]: existingOverwrites = {} } = self._overwrites;
         self._overwrites[ langTag ] = Object.assign( existingOverwrites, translations );
     },
-    
-    
-    translate( key, langTag ){
+
+
+    translate( key, ...args ){
         const self = this;
         let options = {};
-        
-        if( typeof langTag !== 'string' ){
-            if (typeof langTag !== 'undefined') {
-              options = langTag;
-            }
-            const { tag } = self._getLanguage();
-            langTag = tag;
-
+        let newArgs = [];
+        if (args.length) {
+          if (args[args.length-1].hash) {
+            args.pop();
+          }
+          if (typeof args[args.length-1] === 'object') {
+            options = args[args.length-1];
+            args.pop();
+          }
+          newArgs = args;
         }
-        
+
+        const { tag } = self._getLanguage();
+        langTag = tag;
+
+        if (newArgs.length) {
+          options.postProcess = 'sprintf';
+          options.sprintf = args;
+        }
+
         const namespace = self._namespace;
-        
-        return self._i18next.t( key, { lng: langTag, ns: namespace, ...options } );
+        console.log(key, options)
+        return self._i18next.t(key, { lng: langTag, ns: namespace, ...options } );
     },
-    
+
     __(){
         const self = this;
         return self.translate( ...arguments );
     }
-    
+
 });
 
 

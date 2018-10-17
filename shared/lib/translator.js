@@ -214,7 +214,7 @@ Object.assign( Translator.prototype, {
         }
 
         const namespace = self._namespace;
-        console.log(key, options)
+        // console.log(key, options)
         return self._i18next.t(key, { lng: langTag, ns: namespace, ...options } );
     },
 

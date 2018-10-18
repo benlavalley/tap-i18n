@@ -199,7 +199,7 @@ Object.assign( Translator.prototype, {
             args.pop();
           }
           if (typeof args[args.length-1] === 'object') {
-            options = args[args.length-1];
+            options = args[args.length-1] || {};
             args.pop();
           }
           newArgs = args;

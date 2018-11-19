@@ -81,7 +81,9 @@ function Translator( packageName = PROJECT_NAMESPACE, options = {}, originTransl
             resources: Object.create( null ),
             fallbackLng: FALLBACK_LANGUAGE.tag,
             defaultNS: namespace,
-            debug: DEBUG_MODE
+            debug: DEBUG_MODE,
+            interpolation: { prefix: '__',
+                            suffix: '__'  }
         };
         const i18nextIsReady = new Promise( ( __ful, rej__ )=>{
             self._i18next = i18next.createInstance( i18nextOptions, ( err, t )=>{
@@ -214,7 +216,6 @@ Object.assign( Translator.prototype, {
         }
 
         const namespace = self._namespace;
-        // console.log(key, options)
         return self._i18next.t(key, { lng: langTag, ns: namespace, ...options } );
     },
 

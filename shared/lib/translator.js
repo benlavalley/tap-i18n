@@ -197,7 +197,7 @@ Object.assign( Translator.prototype, {
         let options = {};
         let newArgs = [];
         if (args.length) {
-          if (args[args.length-1].hash) {
+          if (args[args.length-1] && args[args.length-1].hash) {
             args.pop();
           }
           if (typeof args[args.length-1] === 'object') {

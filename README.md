@@ -609,8 +609,6 @@ Options:
 your project. If null, all the languages we'll find translation files for, in the
 project, will be available.
 
-**build\_files\_path:** Can be an absolute path or relative to the project's root. If you change this value we assume you want to serve the files yourself (via cdn, or by other means) so we won't initiate the tap-i18n's built-in files server. Therefore if you set build\_files\_path you **must** set the browser\_path.
-
 **i18n\_files\_route:** The route in which the tap-i18n resources will be available in the project.
 
 **cdn\_path:** An alternative path from which you want tap-i18n resources to be loaded. Example: "http://cdn.example.com/tap-i18n".
@@ -685,9 +683,6 @@ The values below are the defaults.
         // the name for the package templates' translation helper
         "helper_name": "_", 
         
-        // directory for the translation files (without leading slash)
-        "languages_files_dir": "i18n",
-
         // tap:i18n automatically separates the translation strings of each package to a
         // namespace dedicated to that package, which is used by the package's translation
         // function and helper. Use the namespace option to set a custom namespace for

@@ -23,8 +23,7 @@ function extractTranslationFileInfo( inputFile ){
 
     const path = parts.join( '.' );
     const name = path.split( '/' ).pop();
-    const langTag = name.split( '.' ).shift();
-    
+    const langTag = name && name.split('.').slice(0, -1).pop();
     return {
         name,
         extension,

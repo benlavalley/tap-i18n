@@ -89,6 +89,7 @@ Package.registerBuildPlugin({
         'caching-compiler',
         'babel-compiler',
 
+        'check',
         'blaze',
         'templating',
         'spacebars',

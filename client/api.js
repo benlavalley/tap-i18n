@@ -2,7 +2,7 @@
 'use strict';
 
 
-
+import { Promise } from 'meteor/promise';
 import api from './../shared/api';
 
 import i18next from 'i18next'; 

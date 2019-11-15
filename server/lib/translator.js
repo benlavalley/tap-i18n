@@ -2,7 +2,7 @@
 'use strict';
 
 
-
+import { Promise } from 'meteor/promise';
 import CONFIG_DEFAULTS from './../../shared/etc/config-defaults';
 import {
     obtainTranslationFilePath,

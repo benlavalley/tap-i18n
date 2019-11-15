@@ -4,6 +4,7 @@
 
 
 import { HTTP } from 'meteor/http';
+import { Promise } from 'meteor/promise';
 
 import { 
     obtainTranslationFilesServeEntry as obtainServeEntry,

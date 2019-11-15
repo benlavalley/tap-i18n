@@ -2,7 +2,7 @@
 'use strict';
 
 
-
+import { Promise } from 'meteor/promise';
 import i18next from 'i18next';
 import sprintf from 'i18next-sprintf-postprocessor';
 

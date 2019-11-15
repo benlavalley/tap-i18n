@@ -4,6 +4,7 @@
 
 
 import i18next from 'i18next';
+import { Promise } from 'meteor/promise';
 
 import CONFIG_DEFAULTS from './etc/config-defaults';
 import { 

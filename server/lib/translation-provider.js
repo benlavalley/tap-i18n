@@ -6,6 +6,7 @@ import { WebApp } from 'meteor/webapp';
 import { parse as parseUrl } from 'url';
 import fs from 'fs';
 import path from 'path';
+import { Promise } from 'meteor/promise';
 
 
 import CONFIG_DEFAULTS from './../../shared/etc/config-defaults';

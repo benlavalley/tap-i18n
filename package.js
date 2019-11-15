@@ -1,7 +1,7 @@
 Package.describe( {
     name: 'tap:i18n',
     summary: 'A comprehensive internationalization solution for Meteor',
-    version: '2.0.0',
+    version: '2.0.1',
     git: 'https://github.com/TAPevents/tap-i18n'
 });
 
@@ -9,7 +9,7 @@ Package.describe( {
 
 Package.onUse( function( api ){
 
-    api.versionsFrom( 'METEOR@1.3.5.1' );
+    api.versionsFrom( 'METEOR@1.8.1' );
 
 
     Npm.depends({
@@ -41,7 +41,9 @@ Package.onUse( function( api ){
         'tracker',
         'session',
         'jquery',
-        'blaze-html-templates'
+        'blaze',
+        'templating',
+        'spacebars',
     ], [ 'client' ]);
 
 
@@ -87,17 +89,14 @@ Package.registerBuildPlugin({
         'caching-compiler',
         'babel-compiler',
 
-        'check@1.2.3',
-        'blaze-html-templates',
-
-        // NOTE: the unordered flag in simple-schema < v2 breaks the dependency here, so we
-        // need to add mdg:validation-error explicitly before simple-schema
-        'mdg:validation-error',
-        'aldeed:simple-schema@1.5.3',
+        'blaze',
+        'templating',
+        'spacebars',
     ],
     npmDependencies: {
         'node-json-minify': '1.0.0',
-        'yamljs': '0.2.8'
+        'yamljs': '0.3.0',
+        'simpl-schema': '1.5.6',
     },
     sources: [
         './shared/etc/config-defaults.js',

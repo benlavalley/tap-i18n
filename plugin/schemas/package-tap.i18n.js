@@ -1,7 +1,7 @@
 'use strict';
 
 
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import SimpleSchema from 'simpl-schema';
 
 import CONFIG_DEFAULTS from './../../shared/etc/config-defaults';
 

@@ -1,7 +1,7 @@
 'use strict';
 
 
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import SimpleSchema from 'simpl-schema';
 
 import CONFIG_DEFAULTS from './../../shared/etc/config-defaults';
 
@@ -28,20 +28,26 @@ const schema = new SimpleSchema({
         defaultValue: GLOBAL_TEMPLATE_HELPER_NAME,
         optional: true
     },
-    
     supported_languages: {
-        type: [ String ],
+        type: Array,
         label: 'Supported Languages',
         defaultValue: supportedLangs,
         optional: true
     },
+    'supported_languages.$': {
+        type: String,
+        label: 'Supported Language Entries',
+    },
     preloaded_langs: {
-        type: [ String ],
+        type: Array,
         label: 'Preload languages',
         defaultValue: preloadedLangs,
         optional: true
     },
-    
+    'preloaded_langs.$': {
+        type: String,
+        label: 'Preload languages Entries',
+    },
     i18n_files_route: {
         type: String,
         label: 'Unified languages files path',

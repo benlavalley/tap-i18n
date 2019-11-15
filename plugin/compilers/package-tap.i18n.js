@@ -3,7 +3,7 @@
 
 
 
-import { Match } from 'meteor/check';
+import SimpleSchema from 'simpl-schema';
 
 import schema from './../schemas/package-tap.i18n';
 import ProjectTAPi18nCompiler from './project-tap.i18n';
@@ -48,8 +48,10 @@ class PackageTAPi18nCompiler extends CachingCompiler {
         }catch( ex ){            
             throw new Error( `file contains invalid json` );
         }
-        
-        if( !Match.test( native, schema ) ){
+
+        try {
+            SimpleSchema.validate(native, schema);
+        } catch (e) {
             throw new Error( `file contains invalid structure` );
         }
         

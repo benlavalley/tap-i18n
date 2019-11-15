@@ -45,13 +45,15 @@ class PackageTAPi18nCompiler extends CachingCompiler {
         let native = Object.create( null );
         try {
             native = JSON.parse( fileContents );    
-        }catch( ex ){            
+        }catch( ex ){
+            console.log(ex);
             throw new Error( `file contains invalid json` );
         }
 
         try {
             SimpleSchema.validate(native, schema);
         } catch (e) {
+            console.log(e);
             throw new Error( `file contains invalid structure` );
         }
         

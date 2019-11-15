@@ -48,7 +48,8 @@ class ProjectTAPi18nCompiler extends CachingCompiler {
         try {
             SimpleSchema.validate(native, schema);
         } catch (e) {
-            throw new Error(`PROJECT file contains invalid structure` );
+            console.log(e);
+            throw new Error(`PROJECT file contains invalid structure`);
         }
 
         

@@ -14,7 +14,7 @@ const CONFIG_DEFAULTS = {
     ASSETS_FOLDER: 'tap-i18n_translation-assets',
     GLOBAL_TEMPLATE_HELPER_NAME: '_',
     
-    DEBUG_MODE: true,
+    DEBUG_MODE: false,
     CACHE_TRANSLATION_FILES_ON_SERVER: false,   // TODO: implement in translation-provider, respect preload flag
     PRELOAD_ALL_LANGUAGES_ON_SERVER: true
 };

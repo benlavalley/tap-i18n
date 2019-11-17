@@ -41,6 +41,7 @@ class ProjectTAPi18nCompiler extends CachingCompiler {
         try {
             native = JSON.parse( fileContents );
         }catch( ex ){
+            console.log(ex);
             throw new Error( `file contains invalid json` );
         }
 

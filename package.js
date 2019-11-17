@@ -9,7 +9,7 @@ Package.describe( {
 
 Package.onUse( function( api ){
 
-    api.versionsFrom( 'METEOR@1.8.1' );
+    api.versionsFrom( 'METEOR@1.8.2' );
 
 
     Npm.depends({
@@ -45,31 +45,6 @@ Package.onUse( function( api ){
         'templating',
         'spacebars',
     ], [ 'client' ]);
-
-
-
-
-    api.addFiles([
-
-    ], [ 'server', 'client' ]);
-
-
-    api.addFiles([
-
-    ], [ 'server' ]);
-
-
-    api.addFiles([
-
-    ], [ 'client' ]);
-
-
-
-
-    api.export([
-
-    ], [ 'server', 'client' ]);
-
 
 
     api.mainModule( 'exports_server.js', 'server' );

@@ -30,6 +30,7 @@ class i18nJsonCompiler extends i18nCompiler {
         try {            
             native = JSON.parse( fileContents );
         }catch( ex ){
+            console.log(ex);
             throw new Error( `language file contains invalid json` );
         }
         

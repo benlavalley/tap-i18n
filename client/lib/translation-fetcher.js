@@ -75,6 +75,7 @@ function fetchTranslationFile( lang ){
                 
                 if( typeof err !== 'undefined' && err !== null ){
                     if( statusCode === 404 ){
+                        console.log('tap-i18n: fetchTranslationFile - ERROR - received 404 attempting to retrieve language "'+langTag+'" from url: '+url);
                         // NOTE: in this case, we try to not break the promise chain
                         return __ful( Object.create( null ) );
                     }else{

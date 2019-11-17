@@ -82,6 +82,8 @@ Translator.prototype = Object.assign( SharedTranslator.prototype, {
                     
                     return Promise.resolve( translationFilesContents );
                 });
+                // todo: figure out why original author had this commented out.
+                // without it, if the server experiences a problem finding a language file, node will throw an uncaught promise rejection error - and the user wont have trace information to indicate the source of the issue.
                 // .catch( ( exc )=> console.log( exc ) );
     }
     

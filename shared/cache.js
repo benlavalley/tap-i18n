@@ -86,11 +86,13 @@ function setConfigurations( options = {} ){
         availableLanguages,
         translationFilesProvider
     });
-    
-    
-    const initialLangTag = supported_languages.shift();
-    const { name: label } = availableLanguages[ initialLangTag ];
-    setLanguage( { tag: initialLangTag, label } );
+
+
+    const initialLangTag = supported_languages && supported_languages.shift();
+    if (initialLangTag) {
+        const { name: label } = availableLanguages[ initialLangTag ];
+        setLanguage( { tag: initialLangTag, label } );
+    }
     
     
     return CACHE.configurations;
@@ -112,7 +114,7 @@ function getTranslationFilesProviderConfiguration(){
 // @return  {String}    begins with a slash or with protocol, ends with no slash
 //
 function obtainTranslationFilesServeEntry(){
-    const { 
+    const {
         localEntryPath,
         cdnEntryUrl 
     } = getTranslationFilesProviderConfiguration();
@@ -130,7 +132,7 @@ function obtainTranslationFilesServeEntry(){
     if( entryPath.charAt( entryPath.length - 1 ) === '/' ){
         entryPath = entryPath.slice( 0, -1 );
     }
-    
+
     return entryPath;
 }
 

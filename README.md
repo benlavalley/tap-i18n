@@ -533,7 +533,19 @@ string in the following order:
 
 ### Structure of Languages Files
 
-Languages files should be named: arbitrary.text.lang_tag.i18n.json . e.g., en.i18n.json, menu.pt-BR.i18n.json.
+~~Languages files should be named: arbitrary.text.lang_tag.i18n.json . e.g., en.i18n.json, menu.pt-BR.i18n.json.~~
+
+## Breaking Change! ##
+
+### **With Lucendio's 2.0.0 re-write, you can no longer use arbitrary.text.lang_tag.i18n.json**
+
+#### You must use lang_tag.i18n.json until the arbitrary text capability is re-introduced.
+
+#### I personally created a pre-build script that combines my existing arbitrary.text.lang_tag.i18n.json files into singular lang_tag.i18n.json files, using the command-line "jq" for now.
+##### example:
+    jq -s add ~/myappfolder/web/tests/i18n/english/*.json > ~/myappfolder/web/lib/i18n/en.i18n.json
+
+#### I moved my language files into "tests" and out of the main project folder as Meteors build tools (and accordingly, i18n) will not try to compile them.
 
 You can have more than one file for the same language.
 

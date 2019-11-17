@@ -71,7 +71,6 @@ function Translator( packageName = PROJECT_NAMESPACE, options = {}, originTransl
         })
     );
 
-
     // INHERIT from origin translator
     if( typeof originTranslator !== 'undefined' ){
         self._i18next = originTranslator._i18next;
@@ -208,7 +207,7 @@ Object.assign( Translator.prototype, {
         }
 
         const { tag } = self._getLanguage();
-        langTag = tag;
+        const langTag = tag;
 
         if (newArgs.length) {
           options.postProcess = 'sprintf';

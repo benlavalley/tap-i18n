@@ -72,7 +72,7 @@ Package.registerBuildPlugin({
     npmDependencies: {
         'node-json-minify': '1.0.0',
         'yamljs': '0.3.0',
-        'simpl-schema': '1.5.6',
+        'simpl-schema': '1.5.5',
     },
     sources: [
         './shared/etc/config-defaults.js',

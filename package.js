@@ -13,7 +13,7 @@ Package.onUse( function( api ){
 
 
     Npm.depends({
-        'i18next': '3.4.1',
+        'i18next': '19.0.2',
         'i18next-sprintf-postprocessor': '0.2.2'
     });
 

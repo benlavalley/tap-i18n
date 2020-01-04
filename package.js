@@ -41,7 +41,6 @@ Package.onUse(function (api) {
 		'spacebars',
 	], ['client']);
 
-Z
 
 	api.mainModule('exports_server.js', 'server');
 	api.mainModule('exports_client.js', 'client');

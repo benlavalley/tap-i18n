@@ -25,12 +25,18 @@ function generate( options = {} ){
     const src = `
         'use strict';
         
-        import './tapi18n';
-        import { _preloadTranslations as preload } from 'meteor/tap:i18n';
+        module.link('./tapi18n');
+        var preload;
+        module.link('meteor/tap:i18n', {
+          _preloadTranslations(v) {
+            preload = v;
+          }
         
-        const langTag = '${ langTag }';
-        const namespace = '${ namespace }';
-        const translations = ${ JSON.stringify( translations ) };
+        }, 0);
+        
+        var langTag = '${ langTag }';
+        var namespace = '${ namespace }';
+        var translations = ${ JSON.stringify( translations ) };
                 
         preload( translations, langTag, namespace );
         `;

@@ -28,37 +28,44 @@ function generate( options = {} ){
     
     if( typeof packageName !== 'string' || packageName === PROJECT_NAMESPACE ){
         levelSpecificCode +=    `
-                                const translator = initialize( '${ PROJECT_NAMESPACE }', options );
-                                const translate = translator.translate.bind( translator );
+                                var translator = initialize( '${ PROJECT_NAMESPACE }', options );
+                                var translate = translator.translate.bind( translator );                              
                                 
-                                export {
-                                    translator as default,
-                                    translate,
-                                    translate as __
-                                };
+                                module.export(
+                                {
+                                    default: function () { return translator;},
+                                    translate: function () { return translate;},
+                                    __: function () { return translate;},
+                                  }
+                                  );
                                 `;
     }else{ // package level
         const { translation_function_name: translateFnName } = configuration;
         levelSpecificCode +=    `
-                                const translator = initialize( '${ packageName }', options );
-                                const translate = translator.translate.bind( translator );
-                                
-                                export {
-                                    translator as default,
-                                    translate,
-                                    translate as ${ translateFnName }
-                                };
+                                var translator = initialize( '${ packageName }', options );
+                                var translate = translator.translate.bind( translator );
+                                                             
+                                module.export(
+                                {
+                                    default: function () { return translator;},
+                                    translate: function () { return translate;},
+                                    __: function () { return ${ translateFnName };},
+                                  }
+                                  );
                                 `;
     }
     
     const server =  `
                     'use strict';
                 
-                    import { 
-                         _init as initialize
-                    } from 'meteor/tap:i18n';
+                    var initialize;
+                    module.link('meteor/tap:i18n', {
+                      _init(v) {
+                        initialize = v;
+                      }                    
+                    }, 0);
                 
-                    const options = ${ JSON.stringify( configuration ) };
+                    var options = ${ JSON.stringify( configuration ) };
                     ${ levelSpecificCode }
                     `;
     
@@ -66,11 +73,14 @@ function generate( options = {} ){
     const client =  `
                     'use strict';
                 
-                    import { 
-                        _init as initialize
-                    } from 'meteor/tap:i18n';
+                    var initialize;
+                    module.link('meteor/tap:i18n', {
+                      _init(v) {
+                        initialize = v;
+                      }                   
+                    }, 0);
                     
-                    const options = ${ JSON.stringify( configuration ) };
+                    var options = ${ JSON.stringify( configuration ) };
                     ${ levelSpecificCode }
                     `;
     
